@@ -5,10 +5,11 @@ import {TableContext} from '../context/TableContext'
 
 export default function Table()
 {
-    const [userData,setUserData]=useState([])
-    const [loading, setLoading]=useState(true)
-    
     const {
+        userData,
+        setUserData,
+        loading,
+        setLoading,
         setOpenModal,
         setOpenToggleList,
         openToggleList,
@@ -93,7 +94,7 @@ export default function Table()
             </thead>
            {
             userData.map((user)=>(
-                <tr className="border-1 border-slate-100 border-2">
+                <tr className="border-1 border-slate-100 border-2" key={user.id}>
                     <td className=" items-center px-1" style={{display: customer?'flex':'none'}}>
                         <img src={user.image} className="profile_image"/>
                         {user.firstName+" "+user.lastName}
