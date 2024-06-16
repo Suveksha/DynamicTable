@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export const TableContext=createContext(null)
 
@@ -18,6 +19,17 @@ export const TableProvider=({children})=>{
     const [toWeight, setToWeight]=useState(0)
     const [birthDateFilter, setBirthDateFilter]=useState(0)
     const [ageFilter, setAgeFilter]=useState(0)
+    const [resetUserData, setResetUserData]=useState([])
+
+    useEffect(()=>{
+        axios.get(import.meta.env.VITE_USERDATA).then((res)=>{
+            console.log("Res",res)
+            setUserData(res.data.users)
+            setResetUserData(res.data.users)
+            setLoading(false)
+        })
+    },
+    [])
 
     return (
         <TableContext.Provider value={{ 
@@ -48,7 +60,9 @@ export const TableProvider=({children})=>{
             toWeight,
             setToWeight,
             birthDateFilter,
-            setBirthDateFilter
+            setBirthDateFilter,
+            setResetUserData,
+            resetUserData
             }}>
             {children}
         </TableContext.Provider>

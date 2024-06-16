@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import axios from "axios"
 import '../styles/Table.css'
 import {TableContext} from '../context/TableContext'
@@ -7,6 +7,7 @@ export default function Table()
 {
     const {
         userData,
+        resetUserData,
         setUserData,
         loading,
         setLoading,
@@ -20,6 +21,8 @@ export default function Table()
         age,
         university
         }=useContext(TableContext)
+
+    const [dataNotFound,setDataNotFound]=useState(false)
 
     function clickModal()
     {
@@ -47,14 +50,39 @@ export default function Table()
         }
     }
 
-    useEffect(()=>{
-        axios.get(import.meta.env.VITE_USERDATA).then((res)=>{
-            console.log("Res",res)
-            setUserData(res.data.users)
-            setLoading(false)
-        })
-    },
-[])
+
+    function searchUserData(event)
+    {
+
+        console.log("Event in Function", event.target.value);
+        let searchData = userData;
+
+        const columns = ['firstName', 'lastName', 'email', 'birthDate', 'weight', 'university'];
+    
+        const searchValue = event.target.value.toLowerCase().trim();
+        
+
+        if(!searchValue)
+            setUserData(resetUserData)
+
+        else
+        {
+            searchData = searchData.filter((user) => {
+                return columns.some((col) => {
+                    const userValue = user[col] ? user[col].toString().toLowerCase() : '';
+                    return userValue.includes(searchValue);
+                }) || (user['firstName'] + " " + user['lastName']).toLowerCase().includes(searchValue);
+            });
+            
+            if(searchData.length<0)
+                setDataNotFound(true)
+            else
+            {
+                setDataNotFound(false)
+                setUserData(searchData);
+            }
+        }
+    }
 
     
     return (
@@ -67,7 +95,7 @@ export default function Table()
         </div> :
         <div onClick={()=>toggleCheckBox('table')} className="container">
            <div className="flex mb-5 top-bar">
-           <input type="text" placeholder="Search by anything..." className="block focus:outline-none rounded-md border-0 h-11 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"/>
+           <input type="text" placeholder="Search by anything..." className="block focus:outline-none rounded-md border-0 h-11 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6" onInput={(event)=>searchUserData(event)}/>
            <div className="flex gap-5">
            <button className="focus:outline-none flex gap-2 hover:border-gray-400" onClick={()=>clickModal()}>
            <svg width="1.5rem" enable-background="new 0 0 32 32" id="Editable-line" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="  M3.241,7.646L13,19v9l6-4v-5l9.759-11.354C29.315,6.996,28.848,6,27.986,6H4.014C3.152,6,2.685,6.996,3.241,7.646z" fill="none" id="XMLID_6_" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/></svg>
@@ -84,7 +112,7 @@ export default function Table()
             <table className="table-auto border-slate-100 border-2 cursor-pointer">
             <thead>
             <tr className="border-slate-100 border-2 text-slate-400">
-                <th className="p-2" style={{display: customer?'':'none'}}>Customer</th>
+                <th className="p-2" style={{display: customer ?'':'none'}}>Customer</th>
                 <th className="p-2" style={{display: email?'':'none'}}>Email</th>
                 <th className="p-2" style={{display: birthDate?'':'none'}}>Birth Date</th>
                 <th className="p-2" style={{display: age?'':'none'}}>Age&nbsp;(years)</th>

@@ -18,24 +18,13 @@ export default function Modal(){
         setAgeFilter,
         birthDateFilter,
         ageFilter,
+        resetUserData
         }=useContext(TableContext)
 
 
     const [fromWeightError, setFromWeightError]=useState(false)
     const [toWeightError, setToWeightError]=useState(false)
     const [ageError,setAgeError]=useState(false)
-    const [clearFilter, setClearFilter]=useState(false)
-
-    useEffect(()=>{
-        axios.get(import.meta.env.VITE_USERDATA).then((res)=>{
-            console.log("Res",res)
-            setUserData(res.data.users)
-            setClearFilter(false)
-            setAgeError(false)
-            setToWeightError(false)
-            setFromWeightError(false)
-        })
-    },[clearFilter])
 
     function closeModal()
     {
@@ -45,8 +34,6 @@ export default function Modal(){
     function showResults()
     {
         checkForNegativeNumber()
-        // if(fromWeightError || toWeightError || ageError)
-        //     return ;
 
         console.log("Weight From", fromWeight, "Weight To", toWeight)
         console.log("BirthDate",new Date(birthDateFilter).getTime())
@@ -96,6 +83,7 @@ export default function Modal(){
 
     function clearFilters()
     {
+        setUserData(resetUserData)
         document.getElementById('fromWeight').value=''
         document.getElementById('toWeight').value=''
         document.getElementById('birthDate').value=''
@@ -104,7 +92,9 @@ export default function Modal(){
         setToWeight('')
         setBirthDateFilter('')
         setAgeFilter('')
-        setClearFilter(true)
+        setAgeError(false)
+        setToWeightError(false)
+        setFromWeightError(false)
     }
 
     function checkForNegativeNumber()
