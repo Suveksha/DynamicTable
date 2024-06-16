@@ -1,3 +1,13 @@
 .profile_image{
     width:4vw;
 }
+
+.container{
+    width: 100vw;
+    height:100vh;
+}
+
+.top-bar{
+    width: 78vw;
+    gap:46vw;
+}
