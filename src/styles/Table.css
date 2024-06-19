@@ -23,3 +23,6 @@ table{
     transform: scale(0.5);
 }
 
+.col-svg svg:hover{
+    transform: scale(0.65);
+}
