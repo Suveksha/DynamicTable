@@ -20,6 +20,7 @@ export const TableProvider=({children})=>{
     const [birthDateFilter, setBirthDateFilter]=useState(0)
     const [ageFilter, setAgeFilter]=useState(0)
     const [resetUserData, setResetUserData]=useState([])
+    const [openExport, setOpenExport]=useState(false)
 
     useEffect(()=>{
         axios.get(import.meta.env.VITE_USERDATA).then((res)=>{
@@ -62,7 +63,9 @@ export const TableProvider=({children})=>{
             birthDateFilter,
             setBirthDateFilter,
             setResetUserData,
-            resetUserData
+            resetUserData,
+            openExport,
+            setOpenExport
             }}>
             {children}
         </TableContext.Provider>

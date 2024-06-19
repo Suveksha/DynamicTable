@@ -9,5 +9,10 @@
 
 .top-bar{
     width: 78vw;
-    gap:46vw;
+    justify-content: space-between;
+    gap:20vw;
+}
+
+table{
+    width:78vw;
 }

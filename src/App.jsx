@@ -6,6 +6,7 @@ import Table from './components/Table'
 import { TableProvider } from './context/TableContext'
 import Modal from './components/Modal'
 import ToggleList from './components/ToggleList'
+import Export from './components/Export'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Table/>
       <Modal/>
       <ToggleList/>
+      <Export/>
     </TableProvider>
   )
 }
