@@ -94,6 +94,182 @@ export default function Table()
         }
     }
 
+    const [sortedData,setSortedData]=useState()
+    const [sortCustomerType,setCustomerSortType]=useState('desc')
+    const [sortEmailType,setEmailSortType]=useState('desc')
+    const [sortAgeType,setAgeSortType]=useState('desc')
+    const [sortWeightType,setWeightSortType]=useState('desc')
+    const [sortUniversityType,setUniversitySortType]=useState('desc')
+    const [sortBirthDateType, setBirthDateSortType]=useState('desc')
+
+
+    function sortColumn(colName, type)
+    {
+        let sortUserData=userData
+
+        switch(colName){
+            case 'customer':
+                if(type=='asc')
+                    {
+                        setCustomerSortType('desc')
+                        sortUserData.sort((a, b) => {
+                            let nameA = a.firstName.toLowerCase();
+                            let nameB = b.firstName.toLowerCase();
+                            if (nameA < nameB) {
+                                return -1;
+                            }
+                            if (nameA > nameB) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                    }
+                    else if (type === 'desc') {
+                        setCustomerSortType('asc')
+                        sortUserData.sort((a, b) => {
+                            let nameA = a.firstName.toLowerCase();
+                            let nameB = b.firstName.toLowerCase();
+                            if (nameA > nameB) {
+                                return -1;
+                            }
+                            if (nameA < nameB) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                    }
+
+                    break;
+
+                case 'email':
+                    if(type=='asc')
+                        {
+                            setEmailSortType('desc')
+                            sortUserData.sort((a, b) => {
+                                let nameA = a.email.toLowerCase();
+                                let nameB = b.email.toLowerCase();
+                                if (nameA < nameB) {
+                                    return -1;
+                                }
+                                if (nameA > nameB) {
+                                    return 1;
+                                }
+                                return 0;
+                            });
+                        }
+                        else if (type === 'desc') {
+                            setEmailSortType('asc')
+                            sortUserData.sort((a, b) => {
+                                let nameA = a.email.toLowerCase();
+                                let nameB = b.email.toLowerCase();
+                                if (nameA > nameB) {
+                                    return -1;
+                                }
+                                if (nameA < nameB) {
+                                    return 1;
+                                }
+                                return 0;
+                            });
+                        }
+                        break;
+
+                case 'age':
+                    if(type=='asc')
+                        {
+                            setAgeSortType('desc')
+                            sortUserData.sort((a,b)=>Number(a.age)-Number(b.age))
+                        }
+                        else
+                        {
+                            setAgeSortType('asc')
+                            sortUserData.sort((a,b)=>Number(b.age)-Number(a.age))
+                        }
+                    break;
+
+                case 'weight':
+                    if(type=='asc')
+                        {
+                            setWeightSortType('desc')
+                            sortUserData.sort((a,b)=>Number(a.weight)-Number(b.weight))
+                        }
+                        else
+                        {
+                            setWeightSortType('asc')
+                            sortUserData.sort((a,b)=>Number(b.weight)-Number(a.weight))
+                        }
+                    break;
+                
+                
+                case 'university':
+                    if(type=='asc')
+                        {
+                            setUniversitySortType('desc')
+                            sortUserData.sort((a, b) => {
+                                let nameA = a.university.toLowerCase();
+                                let nameB = b.university.toLowerCase();
+                                if (nameA < nameB) {
+                                    return -1;
+                                }
+                                if (nameA > nameB) {
+                                    return 1;
+                                }
+                                return 0;
+                            });
+                        }
+                        else if (type === 'desc') {
+                            setUniversitySortType('asc')
+                            sortUserData.sort((a, b) => {
+                                let nameA = a.university.toLowerCase();
+                                let nameB = b.university.toLowerCase();
+                                if (nameA > nameB) {
+                                    return -1;
+                                }
+                                if (nameA < nameB) {
+                                    return 1;
+                                }
+                                return 0;
+                            });
+                        }
+
+                        break;
+                    
+
+                case 'birthDate':
+                    
+                    if(type=='asc')
+                    {
+                        setBirthDateSortType('desc')
+                        sortUserData.sort((a,b)=>{
+                            let dobA=new Date(a.birthDate)
+                            let dobB=new Date(b.birthDate)
+                            return dobA-dobB
+                        })
+                    }
+                    
+                    else if(type=='desc')
+                    {
+                        setBirthDateSortType('asc')
+                        sortUserData.sort((a,b)=>{
+                            let dobA=new Date(a.birthDate)
+                            let dobB=new Date(b.birthDate)
+                            return dobB-dobA
+                        })
+                    }
+
+                    break;
+
+                default:
+                    console.log("Default")
+        }
+
+        console.log("Sorted UserData",sortUserData)
+       setSortedData(sortUserData)
+    }
+
+    useEffect(()=>{
+        setUserData(sortedData)
+
+    },[sortedData])
     
     return (
         <>
@@ -127,13 +303,55 @@ export default function Table()
            <div>
              <table className="border-slate-100 border-2 cursor-pointer">
             <thead>
-            <tr className="border-slate-100 border-2 text-slate-400">
-                <th className="p-2" style={{display: customer ?'':'none'}}>Customer</th>
-                <th className="p-2" style={{display: email?'':'none'}}>Email</th>
-                <th className="p-2" style={{display: birthDate?'':'none'}}>Birth Date</th>
-                <th className="p-2" style={{display: age?'':'none'}}>Age&nbsp;(years)</th>
-                <th className="p-2" style={{display: weight?'':'none'}}>Weight&nbsp;(kg)</th>
-                <th className="p-2" style={{display: university?'':'none'}}>University</th>
+            <tr className="border-slate-100 border-2 text-slate-400 header-row">
+                <th className="p-2 items-center">
+                    <div className="justify-center ap-2" style={{display: customer ?'flex':'none'}}>
+                    Customer 
+        
+                    <div style={{display:sortCustomerType=='desc'?'block':'none'}} onClick={()=>{sortColumn('customer','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
+                    <div style={{display:sortCustomerType=='asc'?'block':'none'}} onClick={()=>{sortColumn('customer','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
+      
+                    </div>
+                    </th>
+                <th className="p-2 items-center">
+                    <div className="justify-center gap-2" style={{display: email?'flex':'none'}}>
+                    Email
+                
+                    <div style={{display:sortEmailType=='desc'?'block':'none'}} onClick={()=>{sortColumn('email','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
+                    <div style={{display:sortEmailType=='asc'?'block':'none'}} onClick={()=>{sortColumn('email','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
+               
+                    </div>
+                </th>
+                <th className="p-2 items-center">
+                    <div className="justify-center gap-2" style={{display: birthDate?'flex':'none'}}>
+                    Birth&nbsp;Date
+
+                    <div style={{display:sortBirthDateType=='desc'?'block':'none'}} onClick={()=>{sortColumn('birthDate','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
+                    <div style={{display:sortBirthDateType=='asc'?'block':'none'}} onClick={()=>{sortColumn('birthDate','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
+
+                    </div>
+                </th>
+                <th className="p-2 items-center">
+                    <div className="justify-center gap-2" style={{display: age?'flex':'none'}}>
+                    Age&nbsp;(years)
+                    <div style={{display:sortAgeType=='desc'?'block':'none'}} onClick={()=>{sortColumn('age','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
+                    <div style={{display:sortAgeType=='asc'?'block':'none'}} onClick={()=>{sortColumn('age','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
+                    </div>
+                </th>
+                <th className="p-2 items-center">
+                    <div className="justify-center gap-2" style={{display: weight?'flex':'none'}}>
+                    Weight&nbsp;(kg)
+                    <div style={{display:sortWeightType=='desc'?'block':'none'}} onClick={()=>{sortColumn('weight','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
+                    <div style={{display:sortWeightType=='asc'?'block':'none'}} onClick={()=>{sortColumn('weight','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
+                    </div>
+                </th>
+                <th className="p-2">
+                    <div className="justify-center gap-2" style={{display: university?'flex':'none'}}>
+                    University
+                    <div style={{display:sortUniversityType=='desc'?'block':'none'}} onClick={()=>{sortColumn('university','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
+                    <div style={{display:sortUniversityType=='asc'?'block':'none'}} onClick={()=>{sortColumn('university','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
+                    </div>
+                </th>
                 </tr>
             </thead>
            {

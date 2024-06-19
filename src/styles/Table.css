@@ -16,3 +16,10 @@
 table{
     width:78vw;
 }
+
+.header-row svg{
+    width:2vw;
+    fill: skyblue;
+    transform: scale(0.5);
+}
+
