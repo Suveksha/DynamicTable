@@ -59,30 +59,30 @@ export default function ToggleList()
               
                <div className="p-3">
                <div className="flex gap-3 p-2">
-                    <input type="checkbox" name="customer" id="customer" onChange={()=>toggleColumns('customer')}/>
+                    <input type="checkbox" name="customer" id="customer" onChange={()=>toggleColumns('customer')} checked={customer}/>
                     <label for="customer">Customer</label>
                 </div>
                 <div className="flex gap-3 p-2">
-                <input type="checkbox" name="email" id="email" onChange={()=>toggleColumns('email')}/>
+                <input type="checkbox" name="email" id="email" onChange={()=>toggleColumns('email')} checked={email}/>
                 <label for="email">Email</label>
                 </div>
                 <div className="flex gap-3 p-2">
-                <input type="checkbox" name="birthDate" id="birthDate" onChange={()=>toggleColumns('birthDate')}/>
+                <input type="checkbox" name="birthDate" id="birthDate" onChange={()=>toggleColumns('birthDate')} checked={birthDate}/>
                 <label for="birthDate">Birth Date</label>
                 </div>
                </div>
 
                 <div className="p-3">
                 <div className="flex gap-3 p-2">
-                <input type="checkbox" name="age" id="age" onChange={()=>toggleColumns('age')}/>
+                <input type="checkbox" name="age" id="age" onChange={()=>toggleColumns('age')} checked={age}/>
                 <label for="age">Age</label>
                 </div>
                <div className="flex gap-3 p-2">
-                <input type="checkbox" name="weight" id="weight" onChange={()=>toggleColumns('weight')}/>
+                <input type="checkbox" name="weight" id="weight" onChange={()=>toggleColumns('weight')} checked={weight}/>
                 <label for="weight">Weight</label>
                 </div>
                 <div className="flex gap-3 p-2">
-                <input type="checkbox" name="university" id="university" onChange={()=>toggleColumns('university')}/>
+                <input type="checkbox" name="university" id="university" onChange={()=>toggleColumns('university')} checked={university}/>
                 <label for="university">University</label>
                 </div>
                 </div>

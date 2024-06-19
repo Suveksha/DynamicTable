@@ -304,7 +304,7 @@ export default function Table()
              <table className="border-slate-100 border-2 cursor-pointer">
             <thead>
             <tr className="border-slate-100 border-2 text-slate-400 header-row">
-                <th className="p-2 items-center">
+                <th className="p-2 items-center" style={{display: customer ?'':'none'}}>
                     <div className="justify-center ap-2" style={{display: customer ?'flex':'none'}}>
                     Customer 
         
@@ -313,7 +313,7 @@ export default function Table()
       
                     </div>
                     </th>
-                <th className="p-2 items-center">
+                <th className="p-2 items-center" style={{display: email?'':'none'}}>
                     <div className="justify-center gap-2" style={{display: email?'flex':'none'}}>
                     Email
                 
@@ -322,7 +322,7 @@ export default function Table()
                
                     </div>
                 </th>
-                <th className="p-2 items-center">
+                <th className="p-2 items-center" style={{display: birthDate?'':'none'}}>
                     <div className="justify-center gap-2" style={{display: birthDate?'flex':'none'}}>
                     Birth&nbsp;Date
 
@@ -331,21 +331,21 @@ export default function Table()
 
                     </div>
                 </th>
-                <th className="p-2 items-center">
+                <th className="p-2 items-center" style={{display: age?'':'none'}}>
                     <div className="justify-center gap-2" style={{display: age?'flex':'none'}}>
                     Age&nbsp;(years)
                     <div style={{display:sortAgeType=='desc'?'block':'none'}} onClick={()=>{sortColumn('age','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
                     <div style={{display:sortAgeType=='asc'?'block':'none'}} onClick={()=>{sortColumn('age','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
                     </div>
                 </th>
-                <th className="p-2 items-center">
+                <th className="p-2 items-center" style={{display: weight?'':'none'}}>
                     <div className="justify-center gap-2" style={{display: weight?'flex':'none'}}>
                     Weight&nbsp;(kg)
                     <div style={{display:sortWeightType=='desc'?'block':'none'}} onClick={()=>{sortColumn('weight','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
                     <div style={{display:sortWeightType=='asc'?'block':'none'}} onClick={()=>{sortColumn('weight','asc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="background"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_down"><polygon points="2.002,10 16.001,24 30.002,10  "/></g></svg></div>
                     </div>
                 </th>
-                <th className="p-2">
+                <th className="p-2"  style={{display: university?'':'none'}}>
                     <div className="justify-center gap-2" style={{display: university?'flex':'none'}}>
                     University
                     <div style={{display:sortUniversityType=='desc'?'block':'none'}} onClick={()=>{sortColumn('university','desc')}}><svg enable-background="new 0 0 32 32" height="32px" id="svg2" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"><g id="backbord"><rect fill="none" height="32" width="32"/></g><g id="arrow_x5F_up"><polygon points="30,22 16.001,8 2.001,22  "/></g></svg></div>
